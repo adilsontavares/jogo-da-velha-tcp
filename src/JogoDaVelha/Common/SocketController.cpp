@@ -9,6 +9,38 @@ SocketController::SocketController()
 {
 	_winSocketStarted = false;
 	_initialized = false;
+
+	_socketDidConnectCallback = 0;
+	_socketDidDisconnectCallback  = 0;
+	_socketDidReceiveDataCallback = 0;
+	_socketDidFailToReceiveDataCallback = 0;
+}
+
+SocketController::~SocketController()
+{
+	while (!_sockets.empty())
+	{
+		Socket *socket = _sockets.back();
+		disconnect(socket);
+
+		delete socket;
+	}
+
+	disconnect(_mainSocket);
+}
+
+bool SocketController::disconnect(Socket *socket)
+{
+	closesocket(socket->getId());
+	socketDidDisconnect(socket);
+
+	auto it = find(_sockets.begin(), _sockets.end(), socket);
+	if (it == _sockets.end())
+		return false;
+
+	_sockets.erase(it);
+
+	return true;
 }
 
 SocketController * SocketController::instance()
@@ -40,6 +72,11 @@ bool SocketController::init(SocketType socketType)
 	return _initialized;
 }
 
+Socket * SocketController::getMainSocket()
+{
+	return _mainSocket;
+}
+
 bool SocketController::init()
 {
 	if (!_winSocketStarted)
@@ -57,15 +94,34 @@ bool SocketController::initAsServer()
 	int sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	Error::assert(sock != SOCKET_ERROR, "Could not open socket.");
 
-	sockaddr_in addr;
-	addr.sin_family = AF_INET;
-	addr.sin_port = htons(9999);
-	inet_pton(AF_INET, "0.0.0.0", &addr.sin_addr.s_addr);
+	sockaddr_in address;
+	address.sin_family = AF_INET;
+	address.sin_port = htons(9999);
+	inet_pton(AF_INET, "0.0.0.0", &address.sin_addr.s_addr);
 
-	Error::assert(::bind(sock, (sockaddr*)&addr, sizeof(addr)) != SOCKET_ERROR, "Could not bind socket.");
+	Error::assert(::bind(sock, (sockaddr*)&address, sizeof(address)) != SOCKET_ERROR, "Could not bind socket.");
 	Error::assert(listen(sock, SOMAXCONN) != SOCKET_ERROR, "Could not listen for clients.");
 
-	_acceptClientsThread = new thread(&SocketController::acceptLoop);
+	_mainSocket = new Socket(sock, address, sizeof(address));
+	_acceptClientsThread = new thread(&SocketController::acceptLoop, this);
+
+	return true;
+}
+
+bool SocketController::initAsClient()
+{
+	int sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	Error::assert(sock != SOCKET_ERROR, "Could not open socket.");
+
+	sockaddr_in address;
+	address.sin_family = AF_INET;
+	address.sin_port = htons(9999);
+	inet_pton(AF_INET, "127.0.0.1", &address.sin_addr.s_addr);
+
+	int result = connect(sock, (sockaddr*)&address, sizeof(address));
+	Error::assert(result != SOCKET_ERROR, "Could not connect to server.");
+
+	_mainSocket = new Socket(sock, address, sizeof(address));
 
 	return true;
 }
@@ -85,15 +141,8 @@ void SocketController::acceptLoop()
 		}
 
 		Socket *socket = new Socket(sock, caddress, caddressLength);
-		_sockets.push_back(socket);
+		socketDidConnect(socket);
 	}
-}
-
-bool SocketController::initAsClient()
-{
-
-
-	return true;
 }
 
 void SocketController::handleClient(Socket *socket)
@@ -107,12 +156,16 @@ void SocketController::handleClient(Socket *socket)
 
 		if (size == 0)
 		{
-			socketWasDisconnected(socket);
+			disconnect(socket);
 			return;
 		}
 
 		if (size == SOCKET_ERROR)
-			socketFailedToReceiveData(socket);
+		{
+			socketDidFailToReceiveData(socket);
+			disconnect(socket);
+			return;
+		}
 		else
 		{
 			buffer[size] = 0;
@@ -121,14 +174,49 @@ void SocketController::handleClient(Socket *socket)
 	}
 }
 
-void SocketController::socketWasDisconnected(Socket * socket)
+void SocketController::socketDidConnect(Socket * socket)
 {
+	_sockets.push_back(socket);
+	new thread(&SocketController::handleClient, this, socket);
+
+	if (_socketDidConnectCallback)
+		_socketDidConnectCallback(socket);
 }
 
-void SocketController::socketFailedToReceiveData(Socket * socket)
+void SocketController::socketDidDisconnect(Socket * socket)
 {
+	if (_socketDidDisconnectCallback)
+		_socketDidDisconnectCallback(socket);
+}
+
+void SocketController::socketDidFailToReceiveData(Socket * socket)
+{
+	if (_socketDidFailToReceiveDataCallback)
+		_socketDidFailToReceiveDataCallback(socket);
 }
 
 void SocketController::socketDidReceiveData(Socket * socket, char * data, size_t size)
 {
+	if (_socketDidReceiveDataCallback)
+		_socketDidReceiveDataCallback(socket, data, size);
+}
+
+void SocketController::setSocketDidConnectCallback(FuncSocketDidConnect callback)
+{
+	_socketDidConnectCallback = callback;
+}
+
+void SocketController::setSocketDidDisconnectCallback(FuncSocketDidDisconnect callback)
+{
+	_socketDidDisconnectCallback = callback;
+}
+
+void SocketController::setSocketDidReceiveDataCallback(FuncSocketDidReceiveData callback)
+{
+	_socketDidReceiveDataCallback = callback;
+}
+
+void SocketController::setSocketDidFailToReceiveDataCallback(FuncSocketDidFailToReceiveData callback)
+{
+	_socketDidFailToReceiveDataCallback = callback;
 }

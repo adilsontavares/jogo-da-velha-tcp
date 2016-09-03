@@ -15,5 +15,8 @@ public:
 	Socket(SOCKET socket, sockaddr_in address, socklen_t addressLength);
 
 	int getId();
+
+	void sendTo(Socket * socket, char *buffer, size_t size);
+	void send(char * buffer, size_t size);
 };
 
