@@ -1,7 +1,0 @@
-﻿  SocketController.cpp
-c:\users\adilson.tavares\documents\github\jogo-da-velha-tcp\src\jogodavelha\common\socketcontroller.h(18): error C2143: syntax error: missing ';' before '*'
-c:\users\adilson.tavares\documents\github\jogo-da-velha-tcp\src\jogodavelha\common\socketcontroller.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\adilson.tavares\documents\github\jogo-da-velha-tcp\src\jogodavelha\common\socketcontroller.h(18): error C2238: unexpected token(s) preceding ';'
-c:\users\adilson.tavares\documents\github\jogo-da-velha-tcp\src\jogodavelha\common\socketcontroller.cpp(67): error C2065: '_acceptClientsThread': undeclared identifier
-  Socket.cpp
-  Generating Code...

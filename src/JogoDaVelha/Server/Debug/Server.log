@@ -1,4 +1,0 @@
-﻿  Source.cpp
-c:\users\adilson.tavares\documents\github\jogo-da-velha-tcp\src\jogodavelha\server\source.cpp(39): error C2065: 'sock': undeclared identifier
-c:\users\adilson.tavares\documents\github\jogo-da-velha-tcp\src\jogodavelha\server\source.cpp(47): error C2065: 'sock': undeclared identifier
-c:\users\adilson.tavares\documents\github\jogo-da-velha-tcp\src\jogodavelha\server\source.cpp(97): warning C4018: '<': signed/unsigned mismatch
