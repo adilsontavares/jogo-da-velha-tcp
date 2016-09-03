@@ -135,11 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="GameMessageCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />

@@ -8,8 +8,17 @@ private:
 
 	Board *_board;
 
+	void initDependencies();
+
+protected:
+
+	virtual void init();
+
 public:
 
 	GameController();
+	~GameController();
+
+	void run();
 };
 

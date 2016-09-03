@@ -1,5 +1,16 @@
 #include "SocketMessage.h"
 #include <stdio.h>
+#include <string>
+
+using namespace std;
+
+SocketMessage::SocketMessage(SocketMessageCode code, string text)
+{
+	_code = code;
+	_size = text.length() + 1;
+	_content = (char*)malloc(_size);
+	strcpy_s(_content, _size, text.c_str());
+}
 
 SocketMessage::SocketMessage(char * buffer, size_t size)
 {

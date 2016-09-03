@@ -131,15 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Console.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="SocketController.h" />
     <ClInclude Include="SocketMessage.h" />
-    <ClInclude Include="SocketMessageTranslator.h" />
+    <ClInclude Include="SocketMessageListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp" />
@@ -147,7 +144,7 @@
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketController.cpp" />
     <ClCompile Include="SocketMessage.cpp" />
-    <ClCompile Include="SocketMessageTranslator.cpp" />
+    <ClCompile Include="SocketMessageListener.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

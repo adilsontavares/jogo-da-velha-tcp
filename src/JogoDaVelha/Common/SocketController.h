@@ -2,12 +2,13 @@
 
 #include <vector>
 #include <thread>
+#include <functional>
 #include "Socket.h"
 
-typedef void (FuncSocketDidConnect)(Socket*);
-typedef void (FuncSocketDidDisconnect)(Socket*);
-typedef void (FuncSocketDidFailToReceiveData)(Socket*);
-typedef void (FuncSocketDidReceiveData)(Socket*, char *buffer, size_t size);
+typedef std::function<void(Socket*)> FuncSocketDidConnect;
+typedef std::function<void(Socket*)> FuncSocketDidDisconnect;
+typedef std::function<void(Socket*)> FuncSocketDidFailToReceiveData;
+typedef std::function<void(Socket*, char*, size_t)> FuncSocketDidReceiveData;
 
 enum SocketType
 {
@@ -19,10 +20,10 @@ class SocketController
 {
 private:
 
-	FuncSocketDidConnect *_socketDidConnectCallback;
-	FuncSocketDidDisconnect *_socketDidDisconnectCallback;
-	FuncSocketDidFailToReceiveData *_socketDidFailToReceiveDataCallback;
-	FuncSocketDidReceiveData *_socketDidReceiveDataCallback;
+	FuncSocketDidConnect _socketDidConnectCallback;
+	FuncSocketDidDisconnect _socketDidDisconnectCallback;
+	FuncSocketDidFailToReceiveData _socketDidFailToReceiveDataCallback;
+	FuncSocketDidReceiveData _socketDidReceiveDataCallback;
 
 	bool _initialized;
 	bool _winSocketStarted;

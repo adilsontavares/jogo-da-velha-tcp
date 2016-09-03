@@ -1,7 +1,16 @@
 #include "GameClientController.h"
+#include "SocketController.h"
+#include "GameMessageCodes.h"
 
 GameClientController::GameClientController()
 {
+	SocketController::instance()->init(kSocketTypeClient);
+}
+
+void GameClientController::init()
+{
+	Socket *socket = SocketController::instance()->getMainSocket();
+	socket->send(new SocketMessage(kGameMessageCodeShowText, "Hello, server!!!!"));
 }
 
 GameClientController * GameClientController::instance()
@@ -10,13 +19,4 @@ GameClientController * GameClientController::instance()
 	if (!instance)
 		instance = new GameClientController();
 	return instance;
-}
-
-GameClientController::~GameClientController()
-{
-}
-
-void GameClientController::run()
-{
-
 }

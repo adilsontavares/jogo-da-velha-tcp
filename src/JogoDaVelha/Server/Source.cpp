@@ -1,5 +1,4 @@
 #include "GameServerController.h"
-#include "SocketMessage.h"
 #include <stdio.h>
 
 int main(int argc, char *argv[])

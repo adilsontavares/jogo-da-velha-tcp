@@ -25,8 +25,14 @@ void Socket::send(char * buffer, size_t size)
 
 void Socket::sendTo(Socket * socket, SocketMessage * message)
 {
+	char *buffer = 0;
+	size_t size;
+
+	message->createBuffer(buffer, &size);
+	sendTo(socket, buffer, size);
 }
 
 void Socket::send(SocketMessage * message)
 {
+	sendTo(this, message);
 }

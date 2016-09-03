@@ -1,10 +1,20 @@
 #include "GameServerController.h"
 #include "SocketController.h"
+#include "SocketMessageListener.h"
+#include "GameMessageCodes.h"
+
+using namespace std;
+using namespace std::placeholders;
 
 GameServerController::GameServerController()
 {
-	SocketController *socketController = SocketController::instance();
-	socketController->init(kSocketTypeServer);
+	SocketController::instance()->init(kSocketTypeServer);
+}
+
+void GameServerController::init()
+{
+	SocketMessageListener *listener = SocketMessageListener::instance();
+	listener->registerMessage(kGameMessageCodeShowText, std::bind(&GameServerController::receivedMessageShowText, this, _1, _2));
 }
 
 GameServerController * GameServerController::instance()
@@ -15,12 +25,7 @@ GameServerController * GameServerController::instance()
 	return instance;
 }
 
-GameServerController::~GameServerController()
+void GameServerController::receivedMessageShowText(Socket * socket, SocketMessage * message)
 {
-	delete SocketController::instance();
-}
-
-void GameServerController::run()
-{
-
+	printf("ALERTA: %s\n", message->getContent());
 }
