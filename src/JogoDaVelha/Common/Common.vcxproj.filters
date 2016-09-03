@@ -30,7 +30,10 @@
     <ClInclude Include="SocketController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Semaphore.h">
+    <ClInclude Include="SocketMessageTranslator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +50,10 @@
     <ClCompile Include="SocketController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Semaphore.cpp">
+    <ClCompile Include="SocketMessageTranslator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

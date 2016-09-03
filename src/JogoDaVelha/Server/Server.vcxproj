@@ -148,6 +148,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClientListener.cpp" />
+    <ClCompile Include="GameServerController.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +159,10 @@
     <ProjectReference Include="..\Game\Game.vcxproj">
       <Project>{7d7b62a1-465f-4bb3-8b48-f257bbc77c47}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ClientListener.h" />
+    <ClInclude Include="GameServerController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

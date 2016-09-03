@@ -1,4 +1,5 @@
 #include "Socket.h"
+#include <iostream>
 
 Socket::Socket(SOCKET socket, sockaddr_in address, socklen_t addressLength)
 {
@@ -20,4 +21,12 @@ void Socket::sendTo(Socket * socket, char * buffer, size_t size)
 void Socket::send(char * buffer, size_t size)
 {
 	sendTo(this, buffer, size);
+}
+
+void Socket::sendTo(Socket * socket, SocketMessage * message)
+{
+}
+
+void Socket::send(SocketMessage * message)
+{
 }

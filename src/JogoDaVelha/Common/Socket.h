@@ -1,6 +1,7 @@
 #pragma once
 
 #include <WS2tcpip.h>
+#include "SocketMessage.h"
 
 class Socket
 {
@@ -18,5 +19,8 @@ public:
 
 	void sendTo(Socket * socket, char *buffer, size_t size);
 	void send(char * buffer, size_t size);
+
+	void sendTo(Socket *socket, SocketMessage *message);
+	void send(SocketMessage *message);
 };
 
