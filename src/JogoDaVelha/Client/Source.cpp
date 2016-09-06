@@ -1,9 +1,9 @@
-#include "GameClientController.h"
+#include "ClientController.h"
 
 int main(int argc, char *argv[])
 {
-	GameClientController *controller = GameClientController::instance();
-	controller->run();
+	ClientController * controller = new ClientController();
+	controller->start();
 
 	delete controller;
 

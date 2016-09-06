@@ -1,10 +1,9 @@
-#include "GameServerController.h"
-#include <stdio.h>
+#include "ServerController.h"
 
 int main(int argc, char *argv[])
 {
-	GameServerController *controller = GameServerController::instance();
-	controller->run();
+	ServerController * controller = new ServerController();
+	controller->start();
 
 	delete controller;
 

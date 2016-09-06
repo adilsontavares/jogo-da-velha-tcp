@@ -1,6 +1,8 @@
 #include "Console.h"
 #include <iostream>
 #include <stdarg.h>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -56,4 +58,16 @@ void Console::writeLine(const char * format, ...)
 	va_end(args);
 
 	printf("\n");
+}
+
+void Console::clear()
+{
+	system("cls");
+}
+
+std::string Console::readLine()
+{
+	string line;
+	getline(cin, line);
+	return line;
 }

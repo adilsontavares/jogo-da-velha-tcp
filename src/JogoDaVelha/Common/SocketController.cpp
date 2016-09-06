@@ -77,6 +77,11 @@ Socket * SocketController::getMainSocket()
 	return _mainSocket;
 }
 
+std::vector<Socket*> SocketController::getSockets()
+{
+	return _sockets;
+}
+
 bool SocketController::init()
 {
 	if (!_winSocketStarted)

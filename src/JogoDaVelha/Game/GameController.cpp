@@ -1,31 +1,35 @@
 #include "GameController.h"
-#include "SocketController.h"
 #include "SocketMessageListener.h"
+#include "Console.h"
+#include "Console.h"
 
 GameController::GameController()
 {
 	_board = new Board(3);
 }
 
-void GameController::init()
-{
-}
-
-void GameController::initDependencies()
-{
-	SocketMessageListener::instance()->init();
-}
-
-void GameController::run()
-{
-	initDependencies();
-	init();
-
-	while (true);
-}
-
 GameController::~GameController()
 {
-	delete SocketMessageListener::instance();
-	delete SocketController::instance();
+}
+
+std::string GameController::askPlayerName()
+{
+	Console::clear();
+	Console::writeLine("Whats is your name?");
+
+	return Console::readLine();
+}
+
+void GameController::exit()
+{
+	Console::log("Game finished.");
+	::exit(0);
+}
+
+GameController * GameController::instance()
+{
+	static GameController * instance = 0;
+	if (!instance)
+		instance = new GameController();
+	return instance;
 }

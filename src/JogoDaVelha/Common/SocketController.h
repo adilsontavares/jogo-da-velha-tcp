@@ -61,5 +61,7 @@ public:
 	bool disconnect(Socket *socket);
 
 	Socket * getMainSocket();
+
+	std::vector<Socket*> getSockets();
 };
 

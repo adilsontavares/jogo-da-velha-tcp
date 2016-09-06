@@ -18,18 +18,24 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameServerController.cpp">
+    <ClCompile Include="ServerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ClientListener.cpp">
+    <ClCompile Include="ServerMessageHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerMessageDispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameServerController.h">
+    <ClInclude Include="ServerController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ClientListener.h">
+    <ClInclude Include="ServerMessageHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerMessageDispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

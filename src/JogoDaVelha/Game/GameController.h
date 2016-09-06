@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Board.h"
+#include "SocketController.h"
 
 class GameController
 {
@@ -8,17 +9,17 @@ private:
 
 	Board *_board;
 
-	void initDependencies();
-
 protected:
-
-	virtual void init();
-
-public:
 
 	GameController();
 	~GameController();
 
-	void run();
+public:
+
+	static GameController * instance();
+
+	std::string askPlayerName();
+
+	void exit();
 };
 

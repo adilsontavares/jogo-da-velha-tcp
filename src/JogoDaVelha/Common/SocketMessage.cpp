@@ -4,6 +4,13 @@
 
 using namespace std;
 
+SocketMessage::SocketMessage(SocketMessageCode code)
+{
+	_code = code;
+	_content = 0;
+	_size = 0;
+}
+
 SocketMessage::SocketMessage(SocketMessageCode code, string text)
 {
 	_code = code;

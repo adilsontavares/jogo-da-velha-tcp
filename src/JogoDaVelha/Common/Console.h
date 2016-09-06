@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 class Console
 {
 private:
@@ -13,5 +15,9 @@ public:
 	static void error(const char *format, ...);
 	static void write(const char *format, ...);
 	static void writeLine(const char *format, ...);
+
+	static void clear();
+
+	static std::string readLine();
 };
 

@@ -16,6 +16,7 @@ private:
 public:
 
 	SocketMessage(char * buffer, size_t size);
+	SocketMessage(SocketMessageCode code);
 	SocketMessage(SocketMessageCode code, std::string text);
 	SocketMessage(SocketMessageCode code, char * content, size_t size);
 
