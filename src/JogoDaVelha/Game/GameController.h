@@ -20,6 +20,9 @@ public:
 
 	std::string askPlayerName();
 
+	void resetBoard(int size);
+	void startGame();
 	void exit();
 };
+
 

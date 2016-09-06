@@ -127,6 +127,7 @@ bool SocketController::initAsClient()
 	Error::assert(result != SOCKET_ERROR, "Could not connect to server.");
 
 	_mainSocket = new Socket(sock, address, sizeof(address));
+	new thread(&SocketController::handleClient, this, _mainSocket);
 
 	return true;
 }
@@ -181,7 +182,7 @@ void SocketController::handleClient(Socket *socket)
 
 void SocketController::socketDidConnect(Socket * socket)
 {
-	Console::log("Socket did connect: %d.", socket->getId());
+	//Console::log("Socket did connect: %d.", socket->getId());
 
 	_sockets.push_back(socket);
 	new thread(&SocketController::handleClient, this, socket);
@@ -192,7 +193,7 @@ void SocketController::socketDidConnect(Socket * socket)
 
 void SocketController::socketDidDisconnect(Socket * socket)
 {
-	Console::log("Socket did disconnect: %d.", socket->getId());
+	//Console::log("Socket did disconnect: %d.", socket->getId());
 
 	if (_socketDidDisconnectCallback)
 		_socketDidDisconnectCallback(socket);
@@ -200,7 +201,7 @@ void SocketController::socketDidDisconnect(Socket * socket)
 
 void SocketController::socketDidFailToReceiveData(Socket * socket)
 {
-	Console::log("Socket failed to receive data from %d.", socket->getId());
+	//Console::log("Socket failed to receive data from %d.", socket->getId());
 
 	if (_socketDidFailToReceiveDataCallback)
 		_socketDidFailToReceiveDataCallback(socket);
@@ -208,7 +209,7 @@ void SocketController::socketDidFailToReceiveData(Socket * socket)
 
 void SocketController::socketDidReceiveData(Socket * socket, char * data, size_t size)
 {
-	Console::log("Socket did receive data from %d.", socket->getId());
+	//Console::log("Socket did receive data from %d.", socket->getId());
 
 	if (_socketDidReceiveDataCallback)
 		_socketDidReceiveDataCallback(socket, data, size);

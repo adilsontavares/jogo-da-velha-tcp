@@ -9,6 +9,8 @@ protected:
 	ServerMessageHandler();
 	~ServerMessageHandler();
 
+	static void initGameIfPossible();
+
 public:
 
 	static ServerMessageHandler * instance();

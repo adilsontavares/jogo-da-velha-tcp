@@ -17,6 +17,13 @@ private:
 public:
 
 	static void askPlayerName(Player * player);
+	static void playerDidChangeName(Player * player);
+
 	static void disconnectBecauseSessionIsFull(Socket * socket);
+
+	static void playerDidConnect(Player * player);
+	static void playerDidDisconnect(Player * player);
+
+	static void startGame();
 };
 

@@ -6,8 +6,12 @@ enum GameMessageCode
 
 	kGameMessageCodeRequestPlayerName,
 	kGameMessageCodeReplyPlayerName,
+	kGameMessageCodePlayerDidChangeName,
+
+	kGameMessageCodePlayerDidConnect,
+	kGameMessageCodePlayerDidDisconnect,
 
 	kGameMessageCodeDisconnectBecauseSessionIsFull,
 
-
+	kGameMessageCodeStartGame
 };

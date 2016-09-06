@@ -1,6 +1,7 @@
 #include "ServerMessageDispatcher.h"
 #include "GameMessageCodes.h"
 #include "SocketController.h"
+#include "MessageData.hpp"
 
 using namespace std;
 
@@ -40,8 +41,40 @@ void ServerMessageDispatcher::askPlayerName(Player * player)
 	sendTo(player->getSocket(), message);
 }
 
+void ServerMessageDispatcher::playerDidChangeName(Player * player)
+{
+	SocketMessage * message = new SocketMessage(kGameMessageCodePlayerDidChangeName, player->getName());
+	sendToAllExcept(player->getSocket(), message);
+}
+
 void ServerMessageDispatcher::disconnectBecauseSessionIsFull(Socket * socket)
 {
 	SocketMessage * message = new SocketMessage(kGameMessageCodeDisconnectBecauseSessionIsFull);
 	sendTo(socket, message);
+
+	SocketController * socketController = SocketController::instance();
+	socketController->disconnect(socket);
+}
+
+void ServerMessageDispatcher::playerDidConnect(Player * player)
+{
+	PlayerData data = PlayerData(player);
+	SocketMessage * message = new SocketMessage(kGameMessageCodePlayerDidConnect, (char*)&data, sizeof(data));
+
+	sendToAll(message);
+}
+
+void ServerMessageDispatcher::playerDidDisconnect(Player * player)
+{
+	PlayerData data = PlayerData(player);
+	SocketMessage * message = new SocketMessage(kGameMessageCodePlayerDidDisconnect, (char*)&data, sizeof(data));
+
+	sendToAll(message);
+}
+
+void ServerMessageDispatcher::startGame()
+{
+	StartGameData data(3);
+	SocketMessage * message = new SocketMessage(kGameMessageCodeStartGame, (char*)&data, sizeof(data));
+	sendToAll(message);
 }

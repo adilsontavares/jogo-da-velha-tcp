@@ -49,7 +49,9 @@ void SocketMessageListener::onReceiveSocketData(Socket * socket, char * buffer, 
 	SocketMessage *message = new SocketMessage(buffer, size);
 	auto it = _messages.find(message->getCode());
 
-	if (it != _messages.end())
+	if (it == _messages.end())
+		Console::log("Socket received an unregistered message for code %d", message->getCode());
+	else
 		it->second(socket, message);
 }
 

@@ -10,7 +10,7 @@ Board::Board(int size)
 	_matrix = 0;
 
 	allocMatrix();
-	fillMatrix('X');
+	fillMatrix('-');
 }
 
 void Board::allocMatrix()

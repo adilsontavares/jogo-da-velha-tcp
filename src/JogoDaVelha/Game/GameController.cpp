@@ -5,11 +5,16 @@
 
 GameController::GameController()
 {
-	_board = new Board(3);
+	_board = 0;
 }
 
 GameController::~GameController()
 {
+}
+
+void GameController::resetBoard(int size)
+{
+	_board = new Board(size);
 }
 
 std::string GameController::askPlayerName()
@@ -23,6 +28,8 @@ std::string GameController::askPlayerName()
 void GameController::exit()
 {
 	Console::log("Game finished.");
+	Console::pause();
+
 	::exit(0);
 }
 
@@ -32,4 +39,12 @@ GameController * GameController::instance()
 	if (!instance)
 		instance = new GameController();
 	return instance;
+}
+
+void GameController::startGame()
+{
+	Console::clear();
+	Console::log("Game started!!");
+
+	_board->print();
 }

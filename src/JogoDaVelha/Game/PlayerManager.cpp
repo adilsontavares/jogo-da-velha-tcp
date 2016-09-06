@@ -1,5 +1,8 @@
 #include "PlayerManager.h"
 #include "Error.h"
+#include "Console.h"
+
+using namespace std;
 
 PlayerManager::PlayerManager()
 {
@@ -19,7 +22,9 @@ PlayerManager * PlayerManager::instance()
 
 void PlayerManager::addPlayer(Player * player)
 {
-	Error::assert(_players.find(player->getCode()) != _players.end(), "Player with this code is already added.");
+	Console::log("Adding player for drawing: %c", player->getDrawing());
+
+	Error::assert(_players.find(player->getCode()) == _players.end(), "Player with this code is already added.");
 	_players[player->getCode()] = player;
 }
 
@@ -33,6 +38,14 @@ void PlayerManager::removePlayer(Player * player)
 			return;
 		}
 	}
+}
+
+std::vector<Player*> PlayerManager::getPlayers()
+{
+	vector<Player*> players;
+	for (auto it = _players.begin(); it != _players.end(); ++it)
+		players.push_back(it->second);
+	return players;
 }
 
 Player * PlayerManager::getPlayer(Socket * socket)

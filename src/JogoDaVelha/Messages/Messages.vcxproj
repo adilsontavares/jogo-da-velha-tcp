@@ -19,15 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoardData.h" />
     <ClInclude Include="GameMessageCodes.h" />
+    <ClInclude Include="MessageData.hpp" />
     <ClInclude Include="MessageHandler.h" />
-    <ClInclude Include="PlayerData.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoardData.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
-    <ClCompile Include="PlayerData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.vcxproj">

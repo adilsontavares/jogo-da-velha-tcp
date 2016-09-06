@@ -17,6 +17,7 @@ public:
 	static void writeLine(const char *format, ...);
 
 	static void clear();
+	static void pause();
 
 	static std::string readLine();
 };

@@ -26,6 +26,9 @@ public:
 	std::string getName();
 	Socket * getSocket();
 
+	char getDrawing();
+	bool ready();
+
 	PlayerCode getCode();
 };
 

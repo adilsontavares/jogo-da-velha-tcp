@@ -65,6 +65,11 @@ void Console::clear()
 	system("cls");
 }
 
+void Console::pause()
+{
+	system("pause");
+}
+
 std::string Console::readLine()
 {
 	string line;

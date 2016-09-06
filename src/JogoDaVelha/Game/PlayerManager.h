@@ -2,6 +2,7 @@
 
 #include "Player.h"
 #include <map>
+#include <vector>
 
 class PlayerManager
 {
@@ -19,6 +20,7 @@ public:
 	void addPlayer(Player * player);
 	void removePlayer(Player * player);
 
+	std::vector<Player*> getPlayers();
 	Player * getPlayer(PlayerCode code);
 	Player * getPlayer(Socket * socket);
 
